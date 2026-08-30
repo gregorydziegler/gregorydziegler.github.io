@@ -4,7 +4,7 @@
 Copy-Fail (CVE-2026-31431) is a local privilege escalation exploit that upgrades any user to root using an unauthenticated page cache write in Linux’s Crypto API. An attacker can inject executable code via 4-byte writes in the page cache, escalating privileges to root. To do this, the vulnerability exploits the authencesn algorithmic template chained through the AF_ALG socket-based interface and uses the splice() system call to write 4 bytes into the page cache. The exploit has affected almost every Linux distribution since 2017 and requires minimal tooling to execute, potentially exposing a wide range of Linux systems to a serious vulnerability. Common mitigations include upgrading the user’s Linux distribution, and system administrators managing Linux systems are highly advised to check for affected kernels (https://copy.fail/#affected).
 
 ## Diagram and Visual Flow
-<img width="800" height="600" alt="image" src="https://github.com/user-attachments/assets/df669aee-3f80-459e-8334-2d8d13b5a96d" />
+<img width="600" height="400" alt="image" src="https://github.com/user-attachments/assets/df669aee-3f80-459e-8334-2d8d13b5a96d" />
 
 ## Technical Analysis: Zero-Copy Pipelines & `splice()`
 The vulnerability stems from how the Linux Crypto API's socket interface (algif_aead) handles zero-copy memory transfers via the splice() system call. To optimize performance, zero-copy pipelines stream data by passing page references directly between pipe buffers and kernel scatterlists without staging data in intermediate CPU-allocated buffers.
